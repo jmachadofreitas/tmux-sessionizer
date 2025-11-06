@@ -95,6 +95,15 @@ while [[ "$#" -gt 0 ]]; do
 
         shift
         ;;
+    -n | --new)
+        parent=$(printf "%s\n" "${TS_SEARCH_PATHS[@]}" | fzf)
+        [[ $? -eq 0 && -n "$parent" ]] || exit 1
+        read -rp "New directory name: " new_dir
+        trimmed=$(echo $new_dir | xargs)
+        [[ $? -eq 0 && -n "$trimmed" ]]  || exit 1
+        mkdir -p "$parent/$trimmed"
+        user_selected="$parent/$new_dir"
+        ;;
     --vsplit)
         split_type="vsplit"
         ;;
