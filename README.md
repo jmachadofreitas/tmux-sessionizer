@@ -36,15 +36,26 @@ tmux neww -t $SESSION_NAME:69 opencode .
 ### How i use it
 Here are my vim remaps for tmux-sessionizer.  C-f will do the standard
 sessionizer experience but Alt+h will mimic my harpoon navigation.  C-h is
-first file harpoon.  M-h is first sessionizer command.
+first file harpoon.  M-h is first sessionizer command. M-C-f to create a new dir.
 
-**vim**
+**nvim**
 ```lua
-vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
-vim.keymap.set("n", "<M-h>", "<cmd>silent !tmux neww tmux-sessionizer -s 0<CR>")
-vim.keymap.set("n", "<M-t>", "<cmd>silent !tmux neww tmux-sessionizer -s 1<CR>")
-vim.keymap.set("n", "<M-n>", "<cmd>silent !tmux neww tmux-sessionizer -s 2<CR>")
-vim.keymap.set("n", "<M-s>", "<cmd>silent !tmux neww tmux-sessionizer -s 3<CR>")
+vim.keymap.set("n", "<C-f>",   "<cmd>silent !tmux neww tmux-sessionizer<CR>")
+vim.keymap.set("n", "<M-C-f>", "<cmd>silent !tmux neww tmux-sessionizer -n<CR>")
+vim.keymap.set("n", "<M-h>",   "<cmd>silent !tmux neww tmux-sessionizer -s 0<CR>")
+vim.keymap.set("n", "<M-t>",   "<cmd>silent !tmux neww tmux-sessionizer -s 1<CR>")
+vim.keymap.set("n", "<M-n>",   "<cmd>silent !tmux neww tmux-sessionizer -s 2<CR>")
+vim.keymap.set("n", "<M-s>",   "<cmd>silent !tmux neww tmux-sessionizer -s 3<CR>")
+```
+
+**bash**
+```bash
+bind '"\C-f":   "tmux-sessionizer\C-m"'
+bind '"\e\C-f": "tmux-sessionizer -n \C-m"'
+bind '"\eh":    "tmux-sessionizer -s 0\C-m"'
+bind '"\et":    "tmux-sessionizer -s 1\C-m"'
+bind '"\en":    "tmux-sessionizer -s 2\C-m"'
+bind '"\es":    "tmux-sessionizer -s 3\C-m"'
 ```
 
 **zsh**
