@@ -98,11 +98,11 @@ while [[ "$#" -gt 0 ]]; do
     -n | --new)
         parent=$(printf "%s\n" "${TS_SEARCH_PATHS[@]}" | fzf)
         [[ $? -eq 0 && -n "$parent" ]] || exit 1
-        read -rp "New directory name: " new_dir
-        trimmed=$(echo $new_dir | xargs)
-        [[ $? -eq 0 && -n "$trimmed" ]]  || exit 1
-        mkdir -p "$parent/$trimmed"
-        user_selected="$parent/$new_dir"
+        IFS= read -r -p "New directory name: " new_dir < /dev/tty || exit 1
+        trimmed=$(printf '%s' "$new_dir" | xargs)
+        [[ $? -eq 0 && -n "$trimmed" ]] || exit 1
+        mkdir -p -- "$parent/$trimmed"
+        user_selected="$parent/$trimmed"
         ;;
     --vsplit)
         split_type="vsplit"

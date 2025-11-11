@@ -48,17 +48,19 @@ vim.keymap.set("n", "<M-s>", "<cmd>silent !tmux neww tmux-sessionizer -s 3<CR>")
 ```
 
 **zsh**
-```bash
-bindkey -s ^f "tmux-sessionizer\n"
-bindkey -s '\eh' "tmux-sessionizer -s 0\n"
-bindkey -s '\et' "tmux-sessionizer -s 1\n"
-bindkey -s '\en' "tmux-sessionizer -s 2\n"
-bindkey -s '\es' "tmux-sessionizer -s 3\n"
+```shell
+bindkey -s '^f'   "tmux-sessionizer\n"
+bindkey -s '\e^F' "tmux-sessionizer -n \n"
+bindkey -s '\eh'  "tmux-sessionizer -s 0\n"
+bindkey -s '\et'  "tmux-sessionizer -s 1\n"
+bindkey -s '\en'  "tmux-sessionizer -s 2\n"
+bindkey -s '\es'  "tmux-sessionizer -s 3\n"
 ```
 
 **tmux**
 ```bash
-bind-key -r f run-shell "tmux neww ~/.local/bin/tmux-sessionizer"
+bind-key -r f run-shell "tmux neww tmux-sessionizer"
+bind-key -r F run-shell "tmux neww tmux-sessionizer -n"
 bind-key -r M-h run-shell "tmux neww tmux-sessionizer -s 0"
 bind-key -r M-t run-shell "tmux neww tmux-sessionizer -s 1"
 bind-key -r M-n run-shell "tmux neww tmux-sessionizer -s 2"
