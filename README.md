@@ -43,9 +43,9 @@ first file harpoon.  M-h is first sessionizer command. M-C-f to create a new dir
 vim.keymap.set("n", "<C-f>",   "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 vim.keymap.set("n", "<M-C-f>", "<cmd>silent !tmux neww tmux-sessionizer -n<CR>")
 vim.keymap.set("n", "<M-h>",   "<cmd>silent !tmux neww tmux-sessionizer -s 0<CR>")
-vim.keymap.set("n", "<M-t>",   "<cmd>silent !tmux neww tmux-sessionizer -s 1<CR>")
-vim.keymap.set("n", "<M-n>",   "<cmd>silent !tmux neww tmux-sessionizer -s 2<CR>")
-vim.keymap.set("n", "<M-s>",   "<cmd>silent !tmux neww tmux-sessionizer -s 3<CR>")
+vim.keymap.set("n", "<M-j>",   "<cmd>silent !tmux neww tmux-sessionizer -s 1<CR>")
+vim.keymap.set("n", "<M-k>",   "<cmd>silent !tmux neww tmux-sessionizer -s 2<CR>")
+vim.keymap.set("n", "<M-l>",   "<cmd>silent !tmux neww tmux-sessionizer -s 3<CR>")
 ```
 
 **bash**
@@ -53,9 +53,9 @@ vim.keymap.set("n", "<M-s>",   "<cmd>silent !tmux neww tmux-sessionizer -s 3<CR>
 bind '"\C-f":   "tmux-sessionizer\C-m"'
 bind '"\e\C-f": "tmux-sessionizer -n \C-m"'
 bind '"\eh":    "tmux-sessionizer -s 0\C-m"'
-bind '"\et":    "tmux-sessionizer -s 1\C-m"'
-bind '"\en":    "tmux-sessionizer -s 2\C-m"'
-bind '"\es":    "tmux-sessionizer -s 3\C-m"'
+bind '"\ej":    "tmux-sessionizer -s 1\C-m"'
+bind '"\ek":    "tmux-sessionizer -s 2\C-m"'
+bind '"\el":    "tmux-sessionizer -s 3\C-m"'
 ```
 
 **zsh**
@@ -63,9 +63,9 @@ bind '"\es":    "tmux-sessionizer -s 3\C-m"'
 bindkey -s '^f'   "tmux-sessionizer\n"
 bindkey -s '\e^F' "tmux-sessionizer -n \n"
 bindkey -s '\eh'  "tmux-sessionizer -s 0\n"
-bindkey -s '\et'  "tmux-sessionizer -s 1\n"
-bindkey -s '\en'  "tmux-sessionizer -s 2\n"
-bindkey -s '\es'  "tmux-sessionizer -s 3\n"
+bindkey -s '\ej'  "tmux-sessionizer -s 1\n"
+bindkey -s '\ek'  "tmux-sessionizer -s 2\n"
+bindkey -s '\el'  "tmux-sessionizer -s 3\n"
 ```
 
 **tmux**
@@ -73,9 +73,9 @@ bindkey -s '\es'  "tmux-sessionizer -s 3\n"
 bind-key -r f run-shell "tmux neww tmux-sessionizer"
 bind-key -r F run-shell "tmux neww tmux-sessionizer -n"
 bind-key -r M-h run-shell "tmux neww tmux-sessionizer -s 0"
-bind-key -r M-t run-shell "tmux neww tmux-sessionizer -s 1"
-bind-key -r M-n run-shell "tmux neww tmux-sessionizer -s 2"
-bind-key -r M-s run-shell "tmux neww tmux-sessionizer -s 3"
+bind-key -r M-j run-shell "tmux neww tmux-sessionizer -s 1"
+bind-key -r M-k run-shell "tmux neww tmux-sessionizer -s 2"
+bind-key -r M-l run-shell "tmux neww tmux-sessionizer -s 3"
 ```
 
 ## Enable Logs
