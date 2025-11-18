@@ -69,6 +69,7 @@ while [[ "$#" -gt 0 ]]; do
         echo "Usage: tmux-sessionizer [OPTIONS] [SEARCH_PATH]"
         echo "Options:"
         echo "  -h, --help             Display this help message"
+        echo "  -n, --new <name>       new directory."
         echo "  -s, --session <name>   session command index."
         echo "  --vsplit               Create vertical split (horizontal layout) for session command"
         echo "  --hsplit               Create horizontal split (vertical layout) for session command"
@@ -96,13 +97,8 @@ while [[ "$#" -gt 0 ]]; do
         shift
         ;;
     -n | --new)
-        parent=$(printf "%s\n" "${TS_SEARCH_PATHS[@]}" | fzf)
-        [[ $? -eq 0 && -n "$parent" ]] || exit 1
-        IFS= read -r -p "New directory name: " new_dir < /dev/tty || exit 1
-        trimmed=$(printf '%s' "$new_dir" | xargs)
-        [[ $? -eq 0 && -n "$trimmed" ]] || exit 1
-        mkdir -p -- "$parent/$trimmed"
-        user_selected="$parent/$trimmed"
+        IFS= read -r -p "New directory name: " untrimmed < /dev/tty || exit 1
+        new_dir=$(printf '%s' "$untrimmed" | xargs)
         ;;
     --vsplit)
         split_type="vsplit"
@@ -121,7 +117,7 @@ while [[ "$#" -gt 0 ]]; do
     shift
 done
 
-log "tmux-sessionizer($VERSION): idx=$session_idx cmd=$session_cmd user_selected=$user_selected split_type=$split_type log=$TS_LOG log_file=$TS_LOG_FILE"
+log "tmux-sessionizer($VERSION): idx=$session_idx new_dir=$new_dir cmd=$session_cmd user_selected=$user_selected split_type=$split_type log=$TS_LOG log_file=$TS_LOG_FILE"
 
 # Validate split options are only used with session commands
 if [[ -n "$split_type" && -z "$session_idx" ]]; then
@@ -327,7 +323,11 @@ if [[ ! -z $session_cmd ]]; then
 elif [[ ! -z $user_selected ]]; then
     selected="$user_selected"
 else
-    selected=$(find_dirs | fzf)
+    if [[ ! -z $new_dir ]]; then
+        selected=$(find_dirs | grep -v "\[TMUX\] " | fzf --prompt="Pick parent dir > ")
+    else
+        selected=$(find_dirs | fzf)
+    fi
 fi
 
 if [[ -z $selected ]]; then
@@ -337,6 +337,12 @@ fi
 if [[ "$selected" =~ ^\[TMUX\]\ (.+)$ ]]; then
     selected="${BASH_REMATCH[1]}"
 fi
+
+if [[ ! -z $new_dir ]]; then
+    selected=$selected/$new_dir
+    mkdir -p -- $selected
+fi
+
 
 selected_name=$(basename "$selected" | tr . _)
 
